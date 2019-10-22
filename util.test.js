@@ -18,7 +18,7 @@ test('should generate a valid text output', () => {
     expect(text).toBe('Raul (29 years old)');
 });
 
-test('should click around', async () => {
+test('should create an element', async () => {
     const browser = await puppeteer.launch({
         headless: false, // Run with a user interface
         slowMo: 80,
@@ -31,5 +31,7 @@ test('should click around', async () => {
     await page.click('input#age');
     await page.type('input#age', '28');
     await page.click('#btnAddUser');
+    const finalText = await page.$eval('.user-item', element => element.textContent);
+    expect(finalText).toBe('Anna (28 years old)');
 
-})
+}, 10000)
